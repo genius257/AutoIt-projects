@@ -96,7 +96,7 @@ Func CorsairReleaseControl($hCUESDKDLL, $iAccessMode)
 EndFunc
 
 Func CorsairPerformProtocolHandshake($hCUESDKDLL)
-	Local $aRet=DllCall($hCUESDKDLL, "STRUCT*", "CorsairPerformProtocolHandshake")
+	Local $aRet=DllCall($hCUESDKDLL, "PTR", "CorsairPerformProtocolHandshake")
 	If @error<>0 Then Return SetError(@error, @extended, -1)
 	;TODO
 ;~ 	Local $tCorsairProtocolDetails=DllStructCreate($tagCorsairProtocolDetails, $aRet[0])
