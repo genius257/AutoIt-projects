@@ -3,7 +3,7 @@
 
 ![x86 broken](https://img.shields.io/badge/x86-broken-red.svg?style=flat-square) ![x64 working](https://img.shields.io/badge/x64-working-green.svg?style=flat-square)
 
-#Corsair CUE SDK
+# Corsair CUE SDK
 Provides easy functions to call the Corsair CUE SDK with AutoIt.
 
 Required files can be downloaded from 
