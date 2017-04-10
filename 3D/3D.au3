@@ -4,6 +4,7 @@
 #include <Array.au3>
 #include <WinAPISys.au3>
 #include <Memory.au3>
+#include <WindowsConstants.au3>
 
 Global Const $PI = 3.141592653589793
 
@@ -70,38 +71,38 @@ Func Face($sString)
 EndFunc
 
 ;~ Global $tVertices = DllStructCreate("DOUBLE a["&3*8&"]")
-Global $tVertices = DllStructCreate("FLOAT a["&3*8&"]")
-	$tVertices.a(1) = -1
-	$tVertices.a(2) = 1
-	$tVertices.a(3) = -1
+;~ Global $tVertices = DllStructCreate("FLOAT a["&3*8&"]")
+;~ 	$tVertices.a(1) = -1
+;~ 	$tVertices.a(2) = 1
+;~ 	$tVertices.a(3) = -1
 
-	$tVertices.a(4) = 1
-	$tVertices.a(5) = 1
-	$tVertices.a(6) = -1
+;~ 	$tVertices.a(4) = 1
+;~ 	$tVertices.a(5) = 1
+;~ 	$tVertices.a(6) = -1
 
-	$tVertices.a(7) = 1
-	$tVertices.a(8) = -1
-	$tVertices.a(9) = -1
+;~ 	$tVertices.a(7) = 1
+;~ 	$tVertices.a(8) = -1
+;~ 	$tVertices.a(9) = -1
 
-	$tVertices.a(10) = -1
-	$tVertices.a(11) = -1
-	$tVertices.a(12) = -1
+;~ 	$tVertices.a(10) = -1
+;~ 	$tVertices.a(11) = -1
+;~ 	$tVertices.a(12) = -1
 
-	$tVertices.a(13) = -1
-	$tVertices.a(14) = 1
-	$tVertices.a(15) = 1
+;~ 	$tVertices.a(13) = -1
+;~ 	$tVertices.a(14) = 1
+;~ 	$tVertices.a(15) = 1
 
-	$tVertices.a(16) = 1
-	$tVertices.a(17) = 1
-	$tVertices.a(18) = 1
+;~ 	$tVertices.a(16) = 1
+;~ 	$tVertices.a(17) = 1
+;~ 	$tVertices.a(18) = 1
 
-	$tVertices.a(19) = 1
-	$tVertices.a(20) = -1
-	$tVertices.a(21) = 1
+;~ 	$tVertices.a(19) = 1
+;~ 	$tVertices.a(20) = -1
+;~ 	$tVertices.a(21) = 1
 
-	$tVertices.a(22) = -1
-	$tVertices.a(23) = -1
-	$tVertices.a(24) = 1
+;~ 	$tVertices.a(22) = -1
+;~ 	$tVertices.a(23) = -1
+;~ 	$tVertices.a(24) = 1
 ;~ #cs
 ;~ Global $vertices = DllStructCreate("DOUBLE a["&3*13&"]")
 Global $tVertices = DllStructCreate("FLOAT a["&3*13&"]")
@@ -175,11 +176,17 @@ Global $aColors = [0x55FF0000,0x5500FF00,0x550000FF,0x55FFFF00,0x5500FFFF,0x55FF
 ;~ Global $aColors = [0xFFFF0000,0xFF00FF00,0xFF0000FF,0xFFFFFF00,0xFF00FFFF,0xFFFF00FF]
 Global $iColors = UBound($aColors)
 
+
+;~ Global $faces[6][6] = [[0,1,2,3,4,5],[5,6,7,8,9,0],[0,1,12,11,10,9],[4,5,6],[8,9,10],[12,1,2]]
+;~ Global $colors[6][3] = [[255,0,0],[0,255,0],[0,0,255],[255,255,0],[0,255,255],[255,0,255]]
+
+
 Global $angle = 0
 
 Opt("GuiOnEventMode", 1)
 
 $hWnd = GUICreate("", 700, 320)
+;~ $hWnd = GUICreate("", 320, 320)
 GUISetState(@SW_SHOW, $hWnd)
 _GDIPlus_Startup()
 $hGraphics = _GDIPlus_GraphicsCreateFromHWND($hWnd)
@@ -187,6 +194,8 @@ $hPath = _GDIPlus_PathCreate()
 $hBrush = _GDIPlus_BrushCreateSolid()
 $hBitmap = _GDIPlus_BitmapCreateFromScan0(_WinAPI_GetClientWidth($hWnd), _WinAPI_GetClientHeight($hWnd), $GDIP_PXF32ARGB)
 $hGraphics2 = _GDIPlus_ImageGetGraphicsContext($hBitmap)
+
+$hDC = _WinAPI_GetDC($hWnd)
 
 _GDIPlus_GraphicsSetCompositingQuality($hGraphics, 1)
 _GDIPlus_GraphicsSetInterpolationMode($hGraphics, 1)
@@ -284,6 +293,7 @@ While 1
 	$iFrames+=1
 	If $iTime>1000 Then
 		$iFPS = ($iFrames/($iTime/1000))
+;~ 		$hTime = TimerInit()
 		$hTime = _WinAPI_GetTickCount()
 		$iFrames = 0
 	EndIf
@@ -291,7 +301,10 @@ While 1
 	_GDIPlus_BrushSetSolidColor($hBrush, 0xFF00FF00)
 	_GDIPlus_GraphicsDrawStringEx($hGraphics2, $iFPS, $hFont, $tLayout, $hFormat, $hBrush)
 
-	_GDIPlus_GraphicsDrawImage($hGraphics, $hBitmap, 0, 0)
+;~ 	_GDIPlus_GraphicsDrawImage($hGraphics, $hBitmap, 0, 0)
+	$hHBITMAP = _GDIPlus_BitmapCreateHBITMAPFromBitmap($hBitmap)
+	_WinAPI_DrawBitmap($hDC, 0, 0, $hHBITMAP, $SRCCOPY)
+	_WinAPI_DeleteObject($hHBITMAP)
 
 	$angle = Mod($angle+0.5, 360)
 
@@ -310,6 +323,8 @@ _GDIPlus_GraphicsDispose($hGraphics2)
 _GDIPlus_PathDispose($hPath)
 _GDIPlus_BrushDispose($hBrush)
 _GDIPlus_Shutdown()
+
+_WinAPI_ReleaseDC($hWnd, $hDC)
 
 Exit
 
