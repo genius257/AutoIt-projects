@@ -1,4 +1,4 @@
-#include "CUE_SDK.au3"
+#include "..\CUE_SDK.au3"
 
 #AutoIt3Wrapper_UseX64=Y
 

@@ -1,5 +1,5 @@
-#include "CUE_SDK.au3"
-#include "CUE_SDK_LFX.au3"
+#include "..\CUE_SDK.au3"
+#include "..\CUE_SDK_LFX.au3"
 
 #AutoIt3Wrapper_UseX64=Y
 $hCUESDKDLL=DllOpen(@AutoItX64?"CUESDK.x64_2015.dll":"CUESDK_2015.dll")
