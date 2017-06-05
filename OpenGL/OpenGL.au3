@@ -421,6 +421,7 @@ Global Const $GL_DLL = "Opengl32.dll"
 Global Const $GLbyte = "BYTE";ATTENTION! GLbyte is signed, whereas AutoIt only works with unsigned 8bit integers. Keep this in mind, when sending and retriving data of this type
 Global Const $GLdouble = "DOUBLE"
 Global Const $GLclampd = "DOUBLE"
+Global Const $GL_VERSION_1_1 = 1
 ;~ Global Const $void = "NONE"
 
 ;glAccum
@@ -457,10 +458,16 @@ Func glArrayElement($index)
 	DllCall("Opengl32.dll","NONE","glArrayElement",$GLint,$index)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glBegin, glEnd
+;glBegin
 ;https://msdn.microsoft.com/en-us/library/dd318361(v=vs.85).aspx
 Func glBegin($mode)
 	DllCall("Opengl32.dll","NONE","glBegin",$GLenum,$mode)
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glEnd
+;
+Func glEnd()
+	DllCall("Opengl32.dll","NONE","glEnd")
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
 ;glBindTexture
@@ -1717,28 +1724,52 @@ Func glPrioritizeTextures($n,$textures,$priorities)
 	DllCall("Opengl32.dll","NONE","glPrioritizeTextures",$GLsizei,$n,"PTR",$textures,"PTR",$priorities)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glPushAttrib, glPopAttrib
+;glPushAttrib
 ;https://msdn.microsoft.com/en-us/library/dd373980(v=vs.85).aspx
 Func glPushAttrib($mask)
 	DllCall("Opengl32.dll","NONE","glPushAttrib",$GLbitfield,$mask)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glPushClientAttrib, glPopClientAttrib
+;glPopAttrib
+;https://msdn.microsoft.com/en-us/library/dd373975(v=vs.85).aspx
+Func glPopAttrib()
+	DllCall("Opengl32.dll","NONE","glPopAttrib")
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glPushClientAttrib
 ;https://msdn.microsoft.com/en-us/library/dd373982(v=vs.85).aspx
 Func glPushClientAttrib($mask)
 	DllCall("Opengl32.dll","NONE","glPushClientAttrib",$GLbitfield,$mask)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glPushMatrix, glPopMatrix
+;glPopClientAttrib
+;https://msdn.microsoft.com/en-us/library/dd373976(v=vs.85).aspx
+Func glPopClientAttrib()
+	DllCall("Opengl32.dll","NONE","glPopClientAttrib")
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glPushMatrix
 ;https://msdn.microsoft.com/en-us/library/dd373984(v=vs.85).aspx
 Func glPushMatrix()
 	DllCall("Opengl32.dll","NONE","glPushMatrix")
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glPushName, glPopName
+;glPopMatrix
+;https://msdn.microsoft.com/en-us/library/dd373977(v=vs.85).aspx
+Func glPopMatrix()
+	DllCall("Opengl32.dll","NONE","glPopMatrix")
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glPushName
 ;https://msdn.microsoft.com/en-us/library/dd373986(v=vs.85).aspx
 Func glPushName($name)
 	DllCall("Opengl32.dll","NONE","glPushName",$GLuint,$name)
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glPopName
+;https://msdn.microsoft.com/en-us/library/dd373978(v=vs.85).aspx
+Func glPopName()
+	DllCall("Opengl32.dll","NONE","glPopName")
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
 ;glRasterPos functions
