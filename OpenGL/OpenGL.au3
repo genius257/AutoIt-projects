@@ -1,3 +1,6 @@
+#include-once
+#include <OpenWGL.au3>
+
 #Region
 Global Const $WIN32_LEAN_AND_MEAN=1
 
@@ -420,7 +423,6 @@ Global Const $GLdouble = "DOUBLE"
 Global Const $GLclampd = "DOUBLE"
 ;~ Global Const $void = "NONE"
 
-
 ;glAccum
 ;https://msdn.microsoft.com/en-us/library/dd318351(v=vs.85).aspx
 Func glAccum($op,$value)
@@ -430,7 +432,10 @@ EndFunc
 ;glAddSwapHintRectWIN
 ;https://msdn.microsoft.com/en-us/library/dd318352(v=vs.85).aspx
 Func glAddSwapHintRectWIN($x,$y,$width,$height)
-	DllCall("Gl.h","NONE","glAddSwapHintRectWIN",$GLint,$x,$GLint,$y,$GLsizei,$width,$GLsizei,$height)
+;~ 	DllCall("Gl.h","NONE","glAddSwapHintRectWIN",$GLint,$x,$GLint,$y,$GLsizei,$width,$GLsizei,$height)
+	If Not (glGetString($GL_EXTENSIONS) == $GL_WIN_swap_hint) Then Return SetError(1, 1, 0)
+	$pProc = wglGetProcAddress("glAddSwapHintRectWIN")
+	DllCallAddress("NONE",$pProc,$GLint,$x,$GLint,$y,$GLsizei,$width,$GLsizei,$height)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
 ;glAlphaFunc
