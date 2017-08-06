@@ -8,6 +8,8 @@ Global Const $WIN32_LEAN_AND_MEAN=1
 Global Const $GL_OES_VERSION_1_0=1
 Global Const $GL_OES_read_format=1
 Global Const $GL_OES_compressed_paletted_texture=1
+Global Const $GL_OES_SC_VERSION_1_0=1
+Global Const $GL_EXT_paletted_texture=1
 
 ;ClearBufferMask
 Global Const $GL_DEPTH_BUFFER_BIT=0x00000100
@@ -26,6 +28,9 @@ Global Const $GL_LINE_STRIP=0x0003
 Global Const $GL_TRIANGLES=0x0004
 Global Const $GL_TRIANGLE_STRIP=0x0005
 Global Const $GL_TRIANGLE_FAN=0x0006
+Global Const $GL_QUADS=0x0007
+Global Const $GL_QUAD_STRIP=0x0008
+Global Const $GL_POLYGON=0x0009
 
 ;AlphaFunction
 Global Const $GL_NEVER=0x0200
@@ -144,24 +149,69 @@ Global Const $GL_FOG_COLOR=0x0B66
 Global Const $GL_CW=0x0900
 Global Const $GL_CCW=0x0901
 
-;GetPName
+; GetBooleanv
+Global Const $GL_DEPTH_WRITEMASK=0x0B72
+Global Const $GL_COLOR_WRITEMASK=0x0C23
+
+; GetFloatv
+Global Const $GL_CURRENT_COLOR=0x0B00
+Global Const $GL_CURRENT_NORMAL=0x0B02
+Global Const $GL_CURRENT_TEXTURE_COORDS=0x0B03
+Global Const $GL_CURRENT_RASTER_COLOR=0x0B04
+Global Const $GL_CURRENT_RASTER_TEXTURE_COORDS=0x0B06
+Global Const $GL_POINT_SIZE=0x0B11
 Global Const $GL_SMOOTH_POINT_SIZE_RANGE=0x0B12
+Global Const $GL_SMOOTH_POINT_SIZE_GRANULARITY=0x0B13
+Global Const $GL_LINE_WIDTH=0x0B21
 Global Const $GL_SMOOTH_LINE_WIDTH_RANGE=0x0B22
+Global Const $GL_SMOOTH_LINE_WIDTH_GRANULARITY=0x0B23
+Global Const $GL_LIGHT_MODEL_AMBIENT=0x0B53
+Global Const $GL_DEPTH_RANGE=0x0B70
+Global Const $GL_DEPTH_CLEAR_VALUE=0x0B73
+Global Const $GL_ALPHA_TEST_REF=0x0BC2
+Global Const $GL_COLOR_CLEAR_VALUE=0x0C22
+Global Const $GL_POLYGON_OFFSET_UNITS=0x2A00
+Global Const $GL_POLYGON_OFFSET_FACTOR=0x8038
 Global Const $GL_ALIASED_POINT_SIZE_RANGE=0x846D
 Global Const $GL_ALIASED_LINE_WIDTH_RANGE=0x846E
-Global Const $GL_IMPLEMENTATION_COLOR_READ_TYPE_OES=0x8B9A
-Global Const $GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES=0x8B9B
+
+; GetIntegerv
+Global Const $GL_MATRIX_MODE=0x0BA0
+Global Const $GL_VIEWPORT=0x0BA2
+Global Const $GL_MODELVIEW_STACK_DEPTH=0x0BA3
+Global Const $GL_PROJECTION_STACK_DEPTH=0x0BA4
+Global Const $GL_MODELVIEW_MATRIX=0x0BA6
+Global Const $GL_PROJECTION_MATRIX=0x0BA7
+Global Const $GL_LINE_STIPPLE_PATTERN=0x0B25
+Global Const $GL_LINE_STIPPLE_REPEAT=0x0B26
+Global Const $GL_MAX_LIST_NESTING=0x0B31
+Global Const $GL_LIST_BASE=0x0B32
+Global Const $GL_CULL_FACE_MODE=0x0B45
+Global Const $GL_FRONT_FACE=0x0B46
+Global Const $GL_DEPTH_FUNC=0x0B74
+Global Const $GL_STENCIL_CLEAR_VALUE=0x0B91
+Global Const $GL_STENCIL_FUNC=0x0B92
+Global Const $GL_STENCIL_VALUE_MASK=0x0B93
+Global Const $GL_STENCIL_FAIL=0x0B94
+Global Const $GL_STENCIL_PASS_DEPTH_FAIL=0x0B95
+Global Const $GL_STENCIL_PASS_DEPTH_PASS=0x0B96
+Global Const $GL_STENCIL_REF=0x0B97
+Global Const $GL_STENCIL_WRITEMASK=0x0B98
+Global Const $GL_ALPHA_TEST_FUNC=0x0BC1
+Global Const $GL_BLEND_DST=0x0BE0
+Global Const $GL_BLEND_SRC=0x0BE1
+Global Const $GL_SCISSOR_BOX=0x0C10
+Global Const $GL_PERSPECTIVE_CORRECTION_HINT=0x0C50
+Global Const $GL_POINT_SMOOTH_HINT=0x0C51
+Global Const $GL_LINE_SMOOTH_HINT=0x0C52
+Global Const $GL_POLYGON_SMOOTH_HINT=0x0C53
+Global Const $GL_UNPACK_ALIGNMENT=0x0CF5
+Global Const $GL_PACK_ALIGNMENT=0x0D05
 Global Const $GL_MAX_LIGHTS=0x0D31
 Global Const $GL_MAX_TEXTURE_SIZE=0x0D33
 Global Const $GL_MAX_MODELVIEW_STACK_DEPTH=0x0D36
 Global Const $GL_MAX_PROJECTION_STACK_DEPTH=0x0D38
-Global Const $GL_MAX_TEXTURE_STACK_DEPTH=0x0D39
 Global Const $GL_MAX_VIEWPORT_DIMS=0x0D3A
-Global Const $GL_MAX_ELEMENTS_VERTICES=0x80E8
-Global Const $GL_MAX_ELEMENTS_INDICES=0x80E9
-Global Const $GL_MAX_TEXTURE_UNITS=0x84E2
-Global Const $GL_NUM_COMPRESSED_TEXTURE_FORMATS=0x86A2
-Global Const $GL_COMPRESSED_TEXTURE_FORMATS=0x86A3
 Global Const $GL_SUBPIXEL_BITS=0x0D50
 Global Const $GL_RED_BITS=0x0D52
 Global Const $GL_GREEN_BITS=0x0D53
@@ -169,6 +219,79 @@ Global Const $GL_BLUE_BITS=0x0D54
 Global Const $GL_ALPHA_BITS=0x0D55
 Global Const $GL_DEPTH_BITS=0x0D56
 Global Const $GL_STENCIL_BITS=0x0D57
+Global Const $GL_VERTEX_ARRAY_SIZE=0x807A
+Global Const $GL_VERTEX_ARRAY_TYPE=0x807B
+Global Const $GL_VERTEX_ARRAY_STRIDE=0x807C
+Global Const $GL_NORMAL_ARRAY_TYPE=0x807E
+Global Const $GL_NORMAL_ARRAY_STRIDE=0x807F
+Global Const $GL_COLOR_ARRAY_SIZE=0x8081
+Global Const $GL_COLOR_ARRAY_TYPE=0x8082
+Global Const $GL_COLOR_ARRAY_STRIDE=0x8083
+Global Const $GL_TEXTURE_COORD_ARRAY_SIZE=0x8088
+Global Const $GL_TEXTURE_COORD_ARRAY_TYPE=0x8089
+Global Const $GL_TEXTURE_COORD_ARRAY_STRIDE=0x808A
+Global Const $GL_SHADE_MODEL=0x0B54
+Global Const $GL_TEXTURE_BINDING_2D=0x8069
+Global Const $GL_MAX_ELEMENTS_VERTICES=0x80E8
+Global Const $GL_MAX_ELEMENTS_INDICES=0x80E9
+Global Const $GL_ACTIVE_TEXTURE=0x84E0
+Global Const $GL_CLIENT_ACTIVE_TEXTURE=0x84E1
+Global Const $GL_MAX_TEXTURE_UNITS=0x84E2
+
+; GetMaterialfv
+Global Const $GL_AMBIENT=0x1200
+Global Const $GL_DIFFUSE=0x1201
+Global Const $GL_SPECULAR=0x1202
+Global Const $GL_EMISSION=0x1600
+Global Const $GL_SHININESS=0x1601
+
+; GetLightfv
+;~ Global Const $GL_AMBIENT=0x1200
+;~ Global Const $GL_DIFFUSE=0x1201
+;~ Global Const $GL_SPECULAR=0x1202
+Global Const $GL_POSITION=0x1203
+
+; GetPointerv
+Global Const $GL_VERTEX_ARRAY_POINTER=0x808E
+Global Const $GL_NORMAL_ARRAY_POINTER=0x808F
+Global Const $GL_COLOR_ARRAY_POINTER=0x8090
+Global Const $GL_TEXTURE_COORD_ARRAY_POINTER=0x8092
+
+; GetTexParameter
+Global Const $GL_TEXTURE_MAG_FILTER=0x2800
+Global Const $GL_TEXTURE_MIN_FILTER=0x2801
+Global Const $GL_TEXTURE_WRAP_S=0x2802
+Global Const $GL_TEXTURE_WRAP_T=0x2803
+
+;GetTexEnvfv
+Global Const $GL_TEXTURE_ENV_MODE=0x2200
+Global Const $GL_TEXTURE_ENV_COLOR=0x2201
+
+;GetPName
+;~ Global Const $GL_SMOOTH_POINT_SIZE_RANGE=0x0B12
+;~ Global Const $GL_SMOOTH_LINE_WIDTH_RANGE=0x0B22
+;~ Global Const $GL_ALIASED_POINT_SIZE_RANGE=0x846D
+;~ Global Const $GL_ALIASED_LINE_WIDTH_RANGE=0x846E
+Global Const $GL_IMPLEMENTATION_COLOR_READ_TYPE_OES=0x8B9A
+Global Const $GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES=0x8B9B
+;~ Global Const $GL_MAX_LIGHTS=0x0D31
+;~ Global Const $GL_MAX_TEXTURE_SIZE=0x0D33
+;~ Global Const $GL_MAX_MODELVIEW_STACK_DEPTH=0x0D36
+;~ Global Const $GL_MAX_PROJECTION_STACK_DEPTH=0x0D38
+Global Const $GL_MAX_TEXTURE_STACK_DEPTH=0x0D39
+;~ Global Const $GL_MAX_VIEWPORT_DIMS=0x0D3A
+;~ Global Const $GL_MAX_ELEMENTS_VERTICES=0x80E8
+;~ Global Const $GL_MAX_ELEMENTS_INDICES=0x80E9
+;~ Global Const $GL_MAX_TEXTURE_UNITS=0x84E2
+Global Const $GL_NUM_COMPRESSED_TEXTURE_FORMATS=0x86A2
+Global Const $GL_COMPRESSED_TEXTURE_FORMATS=0x86A3
+;~ Global Const $GL_SUBPIXEL_BITS=0x0D50
+;~ Global Const $GL_RED_BITS=0x0D52
+;~ Global Const $GL_GREEN_BITS=0x0D53
+;~ Global Const $GL_BLUE_BITS=0x0D54
+;~ Global Const $GL_ALPHA_BITS=0x0D55
+;~ Global Const $GL_DEPTH_BITS=0x0D56
+;~ Global Const $GL_STENCIL_BITS=0x0D57
 
 ;HintMode
 Global Const $GL_DONT_CARE=0x1100
@@ -176,21 +299,21 @@ Global Const $GL_FASTEST=0x1101
 Global Const $GL_NICEST=0x1102
 
 ;HintTarget
-Global Const $GL_PERSPECTIVE_CORRECTION_HINT=0x0C50
-Global Const $GL_POINT_SMOOTH_HINT=0x0C51
-Global Const $GL_LINE_SMOOTH_HINT=0x0C52
-Global Const $GL_POLYGON_SMOOTH_HINT=0x0C53
-Global Const $GL_FOG_HINT=0x0C54
+;~ Global Const $GL_PERSPECTIVE_CORRECTION_HINT=0x0C50
+;~ Global Const $GL_POINT_SMOOTH_HINT=0x0C51
+;~ Global Const $GL_LINE_SMOOTH_HINT=0x0C52
+;~ Global Const $GL_POLYGON_SMOOTH_HINT=0x0C53
+;~ Global Const $GL_FOG_HINT=0x0C54
 
 ;LightModelParameter
-Global Const $GL_LIGHT_MODEL_AMBIENT=0x0B53
+;~ Global Const $GL_LIGHT_MODEL_AMBIENT=0x0B53
 Global Const $GL_LIGHT_MODEL_TWO_SIDE=0x0B52
 
 ;LightParameter
-Global Const $GL_AMBIENT=0x1200
-Global Const $GL_DIFFUSE=0x1201
-Global Const $GL_SPECULAR=0x1202
-Global Const $GL_POSITION=0x1203
+;~ Global Const $GL_AMBIENT=0x1200
+;~ Global Const $GL_DIFFUSE=0x1201
+;~ Global Const $GL_SPECULAR=0x1202
+;~ Global Const $GL_POSITION=0x1203
 Global Const $GL_SPOT_DIRECTION=0x1204
 Global Const $GL_SPOT_EXPONENT=0x1205
 Global Const $GL_SPOT_CUTOFF=0x1206
@@ -228,8 +351,8 @@ Global Const $GL_SET=0x150F
 ;	GL_FRONT_AND_BACK
 
 ;MaterialParameter
-Global Const $GL_EMISSION=0x1600
-Global Const $GL_SHININESS=0x1601
+;~ Global Const $GL_EMISSION=0x1600
+;~ Global Const $GL_SHININESS=0x1601
 Global Const $GL_AMBIENT_AND_DIFFUSE=0x1602
 ;	GL_AMBIENT
 ;	GL_DIFFUSE
@@ -254,8 +377,8 @@ Global Const $GL_LUMINANCE=0x1909
 Global Const $GL_LUMINANCE_ALPHA=0x190A
 
 ;PixelStoreParameter
-Global Const $GL_UNPACK_ALIGNMENT=0x0CF5
-Global Const $GL_PACK_ALIGNMENT=0x0D05
+;~ Global Const $GL_UNPACK_ALIGNMENT=0x0CF5
+;~ Global Const $GL_PACK_ALIGNMENT=0x0D05
 
 ;PixelType
 ;	GL_UNSIGNED_BYTE
@@ -305,8 +428,8 @@ Global Const $GL_ADD=0x0104
 ;	GL_REPLACE
 
 ;TextureEnvParameter
-Global Const $GL_TEXTURE_ENV_MODE=0x2200
-Global Const $GL_TEXTURE_ENV_COLOR=0x2201
+;~ Global Const $GL_TEXTURE_ENV_MODE=0x2200
+;~ Global Const $GL_TEXTURE_ENV_COLOR=0x2201
 
 ;TextureEnvTarget
 Global Const $GL_TEXTURE_ENV=0x2300
@@ -324,10 +447,10 @@ Global Const $GL_NEAREST_MIPMAP_LINEAR=0x2702
 Global Const $GL_LINEAR_MIPMAP_LINEAR=0x2703
 
 ;TextureParameterName
-Global Const $GL_TEXTURE_MAG_FILTER=0x2800
-Global Const $GL_TEXTURE_MIN_FILTER=0x2801
-Global Const $GL_TEXTURE_WRAP_S=0x2802
-Global Const $GL_TEXTURE_WRAP_T=0x2803
+;~ Global Const $GL_TEXTURE_MAG_FILTER=0x2800
+;~ Global Const $GL_TEXTURE_MIN_FILTER=0x2801
+;~ Global Const $GL_TEXTURE_WRAP_S=0x2802
+;~ Global Const $GL_TEXTURE_WRAP_T=0x2803
 
 ;TextureTarget
 ;	GL_TEXTURE_2D
@@ -876,10 +999,16 @@ Func glEdgeFlagPointer($stride,$pointer)
 	DllCall("Opengl32.dll","NONE","glEdgeFlagPointer",$GLsizei,$stride,"PTR",$pointer)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
-;glEnable, glDisable
+;glEnable
 ;https://msdn.microsoft.com/en-us/library/dd318845(v=vs.85).aspx
 Func glEnable($cap)
 	DllCall("Opengl32.dll","NONE","glEnable",$GLenum,$cap)
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+;glDisable
+;https://msdn.microsoft.com/en-us/library/dd318835(v=vs.85).aspx
+Func glDisable($cap)
+	DllCall("Opengl32.dll","NONE","glDisable",$GLenum,$cap)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
 ;glEnableClientState
@@ -1082,7 +1211,7 @@ EndFunc
 Func glGetError()
 	Local $a=DllCall("Opengl32.dll",$GLenum,"glGetError")
 	If @error<>0 Then Return SetError(@error, @extended, 0)
-	Return $a
+	Return $a[0]
 EndFunc
 ;glGetFloatv
 ;https://msdn.microsoft.com/en-us/library/ee872026(v=vs.85).aspx
