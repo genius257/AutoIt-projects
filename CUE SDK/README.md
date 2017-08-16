@@ -7,6 +7,6 @@
 Provides easy functions to call the Corsair CUE SDK with AutoIt.
 
 Required files can be downloaded from 
-[Corsairs hompage](//www.corsair.com/en-eu/downloads)
+[Corsairs hompage](http://www.corsair.com/en-eu/downloads)
 
 Code tested with a K95 RGB Keyboard. Other devices may not work with the test scripts.
