@@ -375,6 +375,8 @@ Global Const $GL_RGB=0x1907
 Global Const $GL_RGBA=0x1908
 Global Const $GL_LUMINANCE=0x1909
 Global Const $GL_LUMINANCE_ALPHA=0x190A
+Global Const $GL_BGR=0x80E0
+Global Const $GL_BGRA=0x80E1
 
 ;PixelStoreParameter
 ;~ Global Const $GL_UNPACK_ALIGNMENT=0x0CF5
@@ -537,6 +539,60 @@ Global Const $GLintptrARB="INT"
 Global Const $GLsizeiptrARB="INT"
 Global Const $GLfixed="INT"
 Global Const $GLclampx="INT"
+
+; Pixel Mode / Transfer
+$GL_MAP_COLOR=0x0D10
+$GL_MAP_STENCIL=0x0D11
+$GL_INDEX_SHIFT=0x0D12
+$GL_INDEX_OFFSET=0x0D13
+$GL_RED_SCALE=0x0D14
+$GL_RED_BIAS=0x0D15
+$GL_GREEN_SCALE=0x0D18
+$GL_GREEN_BIAS=0x0D19
+$GL_BLUE_SCALE=0x0D1A
+$GL_BLUE_BIAS=0x0D1B
+$GL_ALPHA_SCALE=0x0D1C
+$GL_ALPHA_BIAS=0x0D1D
+$GL_DEPTH_SCALE=0x0D1E
+$GL_DEPTH_BIAS=0x0D1F
+$GL_PIXEL_MAP_S_TO_S_SIZE=0x0CB1
+$GL_PIXEL_MAP_I_TO_I_SIZE=0x0CB0
+$GL_PIXEL_MAP_I_TO_R_SIZE=0x0CB2
+$GL_PIXEL_MAP_I_TO_G_SIZE=0x0CB3
+$GL_PIXEL_MAP_I_TO_B_SIZE=0x0CB4
+$GL_PIXEL_MAP_I_TO_A_SIZE=0x0CB5
+$GL_PIXEL_MAP_R_TO_R_SIZE=0x0CB6
+$GL_PIXEL_MAP_G_TO_G_SIZE=0x0CB7
+$GL_PIXEL_MAP_B_TO_B_SIZE=0x0CB8
+$GL_PIXEL_MAP_A_TO_A_SIZE=0x0CB9
+$GL_PIXEL_MAP_S_TO_S=0x0C71
+$GL_PIXEL_MAP_I_TO_I=0x0C70
+$GL_PIXEL_MAP_I_TO_R=0x0C72
+$GL_PIXEL_MAP_I_TO_G=0x0C73
+$GL_PIXEL_MAP_I_TO_B=0x0C74
+$GL_PIXEL_MAP_I_TO_A=0x0C75
+$GL_PIXEL_MAP_R_TO_R=0x0C76
+$GL_PIXEL_MAP_G_TO_G=0x0C77
+$GL_PIXEL_MAP_B_TO_B=0x0C78
+$GL_PIXEL_MAP_A_TO_A=0x0C79
+;~ $GL_PACK_ALIGNMENT=0x0D05
+$GL_PACK_LSB_FIRST=0x0D01
+$GL_PACK_ROW_LENGTH=0x0D02
+$GL_PACK_SKIP_PIXELS=0x0D04
+$GL_PACK_SKIP_ROWS=0x0D03
+$GL_PACK_SWAP_BYTES=0x0D00
+;~ $GL_UNPACK_ALIGNMENT=0x0CF5
+$GL_UNPACK_LSB_FIRST=0x0CF1
+$GL_UNPACK_ROW_LENGTH=0x0CF2
+$GL_UNPACK_SKIP_PIXELS=0x0CF4
+$GL_UNPACK_SKIP_ROWS=0x0CF3
+$GL_UNPACK_SWAP_BYTES=0x0CF0
+$GL_ZOOM_X=0x0D16
+$GL_ZOOM_Y=0x0D17
+
+$GL_RGBA8=0x8058
+$GL_BGRA_EXT=0x80E1
+
 #EndRegion
 
 Global Const $GL_WIN_swap_hint=1
@@ -2658,5 +2714,14 @@ EndFunc
 ;https://msdn.microsoft.com/en-us/library/dd374202(v=vs.85).aspx
 Func glViewport($x,$y,$width,$height)
 	DllCall("Opengl32.dll","NONE","glViewport",$GLint,$x,$GLint,$y,$GLsizei,$width,$GLsizei,$height)
+	If @error<>0 Then Return SetError(@error, @extended, 0)
+EndFunc
+
+;-----------------------------------------------------------------------------------------;
+; Once again, MSDN is missing documentation. Below is functions they "forgot" to document ;
+;-----------------------------------------------------------------------------------------;
+
+Func glTexCoord2f($s,$t)
+	DllCall("Opengl32.dll","NONE","glTexCoord2f",$GLfloat,$s,$GLfloat,$t)
 	If @error<>0 Then Return SetError(@error, @extended, 0)
 EndFunc
