@@ -73,8 +73,16 @@ EndFunc
 Func CorsairGetLedPositions($hCUESDKDLL)
 	Local $aRet=DllCall($hCUESDKDLL, "PTR", "CorsairGetLedPositions")
 	If @error<>0 Then Return SetError(@error, @extended, -1)
-	$tCorsairLedPositions=DllStructCreate($tagCorsairLedPositions, $aRet[0])
+	Local $tCorsairLedPositions=DllStructCreate($tagCorsairLedPositions, $aRet[0])
 	Return $tCorsairLedPositions
+EndFunc
+
+Func CorsairGetLedPositionsByDeviceIndex($hCUESDKDLL)
+	Local $aRet=DllCall($hCUESDKDLL, "PTR", "CorsairGetLedPositionsByDeviceIndex")
+	If @error<>0 Then Return SetError(@error, @extended, -1)
+	MsgBox(0, "", $aRet[0])
+	Local $tCorsairLedPositionsByDeviceIndex=DllStructCreate($tagCorsairLedPositions, $aRet[0])
+	Return $tCorsairLedPositionsByDeviceIndex
 EndFunc
 
 Func CorsairGetLedIdForKeyName($hCUESDKDLL, $sKeyName)
